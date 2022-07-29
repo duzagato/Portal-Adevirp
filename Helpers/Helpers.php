@@ -1,6 +1,14 @@
 <?php 
 
     class Helpers{
+        public static function convertToAmplified($file){
+            extract($file);
+            $phpWord = \PhpOffice\PhpWord\IOFactory::load($tmp_name);
+            $phpWord->setDefaultFontSize(50);
+            $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+            $objWriter->save(PATH_UPLOADS_IMPRESSOES.'/'.$name);
+        }
+        
         public static function loadValidation($params, $table, $foreignKey = array()){
             if(!isset($params[0]) || !is_numeric($params[0]) || empty($params[0])){
                 header('Location: '.URL.$table.'s');
@@ -114,11 +122,7 @@
 
         public static function uploadFile($file, $folder){
             extract($file);
-            $extension = explode('.', $name)[1];
-            $fileName = md5(time().rand(0, 99999)).'.'.$extension;
-
-            move_uploaded_file($tmp_name, $folder.$fileName);
-            return $fileName;
+            move_uploaded_file($tmp_name, $folder.$name);
         }
     }
 

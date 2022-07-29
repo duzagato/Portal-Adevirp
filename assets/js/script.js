@@ -6,7 +6,7 @@ document.querySelector('form').addEventListener('submit', (e)=>{
     const page = url+e.target.name;
     removeAlerts(form);
     
-    postRequest(form, page);
+    testRequest(form, page);
 });
 
 function postRequest(form, page){

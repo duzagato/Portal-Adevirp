@@ -4,6 +4,15 @@
         private $table;
         private $data;
 
+        public function getMethod($file_name){
+            $methods = array(
+                'docx'=>'text_file'
+            );
+            $extension = explode('.', $file_name)[1];
+
+            return $methods[$extension];
+        }
+
         public function setTable($table){
             $this->table = $table;
         }

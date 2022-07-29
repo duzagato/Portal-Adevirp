@@ -6,6 +6,7 @@
 
 	if($environment === 'dev'){
 		define('URL', 'http://localhost/adevirp/');
+		define('PATH_UPLOADS_IMPRESSOES', 'assets/uploads/impressoes/');
 		$db = array(
 			'host' => 'localhost',
 			'dbname' => 'adevirp',

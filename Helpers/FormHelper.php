@@ -50,10 +50,23 @@
             return $trim;
         }
 
-        public static function form_validation($data){
-            $data = FormHelper::trimData($data);
+        public static function form_validation($post, $files){
+            unset($post['form_submit']);
+            if($_FILES != array()){
+                foreach($files as $key => $value){
+                    $f = new ValidationHelper();
+                    $method = $f->getMethod($value['name']);
+                    $data[$key] = $value;
 
-            self::$form['form_data'] = $data;
+                    if(method_exists($f, $method)){
+                        self::$form['alerts'][$key] = $f->$method($value);
+                    }else{
+                        self::$form['alerts'][$key] = true;
+                    }
+                }
+            }
+
+            self::$form['form_data'] = $data + $post;
             $v = new ValidationHelper();
 
             foreach($data as $key => $value){

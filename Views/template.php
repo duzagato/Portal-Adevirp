@@ -16,7 +16,8 @@
 	<body>
 		<header>
 			<nav>
-				<a href="<?php echo URL.'impressao'; ?>">Impressão</a>
+				<a href="<?php echo URL.'biblioteca'; ?>">Biblioteca</a>
+				<a href="<?php echo URL.'impressoes'; ?>">Impressões</a>
 				<a href="<?php echo URL.'projetos'; ?>">Projetos</a>
 				<a href="<?php echo URL.'agenda'; ?>">Agenda</a>
 				<a href="<?php echo URL.'relatorios'; ?>">Relatórios</a>

@@ -27,7 +27,7 @@
 
 			if(class_exists($controller) && method_exists($controller, $method)){
 				if(isset($_POST) && $_POST != array()){
-					FormHelper::form_validation($_POST);
+					FormHelper::form_validation($_POST, $_FILES);
 				}
 				
 				if(isset($_COOKIE['ADEVIRP_ID']) && isset($_COOKIE['ADEVIRP_TOKEN'])){
