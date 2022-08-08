@@ -1,6 +1,6 @@
 <?php
 
-    class usuariosController extends Controller{
+    class Usuarios extends Controller{
         public static function index(){
             $data = array();
             $data['usuarios'] = Database::query('SELECT * FROM usuario, tipo WHERE usuario.tipo_id = tipo.tipo_id ORDER BY usuario_nome ASC');

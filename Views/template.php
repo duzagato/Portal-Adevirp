@@ -1,3 +1,5 @@
+<?php extract($usuario); ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 	<head>
@@ -16,12 +18,24 @@
 	<body>
 		<header>
 			<nav>
-				<a href="<?php echo URL.'biblioteca'; ?>">Biblioteca</a>
-				<a href="<?php echo URL.'impressoes'; ?>">Impressões</a>
-				<a href="<?php echo URL.'projetos'; ?>">Projetos</a>
-				<a href="<?php echo URL.'agenda'; ?>">Agenda</a>
-				<a href="<?php echo URL.'relatorios'; ?>">Relatórios</a>
-				<a href="<?php echo URL.'usuarios'; ?>">Usuários</a>
+				<div class="usuario">
+					<span><?php echo $usuario_nome.' '.$usuario_sobrenome;?></span>
+					<a href="<?php echo URL.'agenda';?>">Minha Agenda</a>
+					<a href="<?php echo URL.'relatorios/';?>">Meus Relatórios</a>
+					<a href=""></a>
+					<a href=""></a>
+					<a href=""></a>
+				</div>
+				<div class="admin">
+					<span>Administração: </span>
+					<a href="<?php echo URL.'admin/biblioteca'; ?>">Biblioteca</a>
+					<a href="<?php echo URL.'admin/impressoes'; ?>">Impressões</a>
+					<a href="<?php echo URL.'admin/projetos'; ?>">Projetos</a>
+					<a href="<?php echo URL.'admin/agendas'; ?>">Agenda</a>
+					<a href="<?php echo URL.'admin/relatorios'; ?>">Relatórios</a>
+					<a href="<?php echo URL.'admin/usuarios'; ?>">Usuários</a>
+				</div>
+				<a href="<?php echo URL.'sair'; ?>">Sair</a>
 			</nav>
 		</header>
 

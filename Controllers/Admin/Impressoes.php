@@ -1,5 +1,5 @@
 <?php
-    class impressoesController extends Controller{
+    class Impressoes extends Controller{
         public static function index(){
             $data = array();
 

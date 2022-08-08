@@ -7,8 +7,19 @@
 			$request = self::checkRoutes();
 
 			if(isset($request) && !empty($request[0]) && is_array($request) && count($request) != 0){
-				$controller = $request[0].'Controller';
-				array_shift($request);
+				if($request[0] === 'admin'){
+					if(isset($request[1])){
+						$controller = ucfirst($request[1]);
+						require_once 'Controllers/Admin/'.$controller.'.php';
+						array_shift($request);
+						array_shift($request);
+					}else{
+						header('Location: '.URL);
+					}
+				}else{
+					$controller = $request[0].'Controller';
+					array_shift($request);
+				}
 
 				if(isset($request[0]) && !empty($request[0])){
 					$method = $request[0];
@@ -23,20 +34,35 @@
 				$method = 'index';
 				$info = array();
 			}
+
+			// echo '<pre>';
+			// echo $controller;
+			// echo '<br>';
+			// echo $method;
+			// echo '<br>';
+			// print_r($info);
+			// exit;
 			require_once 'Routes/Controller.php';
 
 			if(class_exists($controller) && method_exists($controller, $method)){
-				if(isset($_POST) && $_POST != array()){
+				if($_POST != array() && !isset($_POST[$controller])){
 					FormHelper::form_validation($_POST, $_FILES);
 				}
-				
-				if(isset($_COOKIE['ADEVIRP_ID']) && isset($_COOKIE['ADEVIRP_TOKEN'])){
-					if(!Database::query('SELECT token_id FROM login_token WHERE usuario_id = :usuario_id', array(':usuario_id'=>$_COOKIE['ADEVIRP_ID']))){
+
+				if(isset($_SESSION['ADEVIRP_ID']) && isset($_SESSION['ADEVIRP_TOKEN'])){
+					if(User::verifyToken($_SESSION['ADEVIRP_ID'], $_SESSION['ADEVIRP_TOKEN']) === false){
 						User::userLogout();
 					}
-				}
-				elseif(!isset($_SESSION['usuario_id']) || empty($_SESSION['usuario_id']) || !is_numeric($_SESSION['usuario_id'])){
-					if(REQUEST != '/login'){
+				}elseif(isset($_COOKIE['ADEVIRP_ID']) && isset($_COOKIE['ADEVIRP_TOKEN'])){
+					if(User::verifyToken($_COOKIE['ADEVIRP_ID'], $_COOKIE['ADEVIRP_TOKEN']) === false){
+						User::userLogout();
+					}else{
+						$_SESSION['ADEVIRP_ID'] = $_COOKIE['ADEVIRP_ID'];
+						$_SESSION['ADEVIRP_TOKEN'] = $_COOKIE['ADEVIRP_TOKEN'];
+						$_SESSION['ADEVIRP_SLUG'] = Database::query('SELECT usuario_slug FROM usuario WHERE usuario_id = :id', array(':id'=> $_COOKIE['ADEVIRP_ID']))[0]['usuario_slug'];
+					}
+				}else{
+					if(REQUEST != '/login' && REQUEST != '/cadastrar'){
 						header('Location: '.URL.'login');
 					}
 				}
@@ -57,6 +83,17 @@
 		public static function checkRoutes(){
 			global $routes;
 			$request = REQUEST;
+
+			if(isset(explode('/', REQUEST)[1]) && explode('/', REQUEST)[1] !== '' && Database::query('SELECT usuario_id FROM usuario WHERE usuario_slug = :slug', array(':slug'=>explode('/', REQUEST)[1]))){
+				$r = explode('/', REQUEST);
+				array_shift($r);
+				Controller::setUserOfRequest(Helpers::strToSlug($r[0]));
+				$user = Helpers::strToSlug($r[0]);
+				if(count($r) === 1){
+					Controller::setUserOfRequest(Helpers::strToSlug($r[0]));
+					$request = '/perfil/open/'.$user;
+				}
+			}
 			
 			foreach($routes as $pt => $newrequest) {
 				// Identifica os argumentos e substitui por regex

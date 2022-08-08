@@ -87,6 +87,16 @@
             return $aula;
         }
 
+        public static function translateDays(){
+            $day['Mon'] = 'segunda-feira';
+            $day['Tue'] = 'terça-feira';
+            $day['Wed'] = 'quarta-feira';
+            $day['Thu'] = 'quinta-feira';
+            $day['Fri'] = 'sexta-feira';
+
+            return $day;
+        }
+
         public static function getNow(){
 			return date('d/m/Y', time());
         }
@@ -107,17 +117,24 @@
 
         public static function insertToken($usuario_id){
             $token = uniqid('ad');
-            Database::query('INSERT INTO login_token VALUES (\'\', :usuario_id, :token)', array(':usuario_id'=>$usuario_id, ':token'=>password_hash($token, PASSWORD_BCRYPT)));
-      
-            setcookie("ADEVIRP_TOKEN", $token, time() + 60 * 60 * 24 * 360, '/', NULL, NULL, TRUE);
-            setcookie("ADEVIRP_ID", $usuario_id, time() + 60 * 60 * 24 * 360, '/', NULL, NULL, TRUE);
+            Database::query('INSERT INTO login_token VALUES (\'\', :usuario_id, :token)', array(':usuario_id'=>$usuario_id, ':token'=>$token));
 
             return $token;
+          }
+
+          public static function createCookies($usuario_id, $token){
+            setcookie("ADEVIRP_TOKEN", $token, time() + 60 * 60 * 24 * 360, '/', NULL, NULL, TRUE);
+            setcookie("ADEVIRP_ID", $usuario_id, time() + 60 * 60 * 24 * 360, '/', NULL, NULL, TRUE);
           }
 
         public static function unsetCookies(){
             unset($_COOKIE['ADEVIRP_ID']);
 			unset($_COOKIE['ADEVIRP_TOKEN']);
+        }
+
+        public static function expireCookie($name){
+            unset($_COOKIE[$name]);
+            setcookie($name, null, -1, '/');
         }
 
         public static function uploadFile($file, $folder){

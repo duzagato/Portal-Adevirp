@@ -1,12 +1,15 @@
 const url = 'http://localhost/adevirp/';
+const forms = document.querySelectorAll('form');
 
-document.querySelector('form').addEventListener('submit', (e)=>{
-    e.preventDefault();
-    const form = document.getElementById(e.target.id);
-    const page = url+e.target.name;
-    removeAlerts(form);
-    
-    testRequest(form, page);
+forms.forEach((item)=>{
+    item.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const form = document.querySelector('[name="'+e.target.name+'"]');
+        const page = url+e.target.name;
+        removeAlerts(form);
+        
+        postRequest(form, page);
+    });
 });
 
 function postRequest(form, page){
@@ -17,12 +20,13 @@ function postRequest(form, page){
         // Converting received data to JSON
         .then(response => response.json())
         .then(json => {
+            console.log(json);
             if(json.isValid === false && typeof json.failure != 'undefined'){
                 const br = document.createElement('br');
                 form.prepend(br);
                 form.prepend(createAlert('failure', json.failure));
             }else if(json.isValid === true && typeof json.redirect != 'undefined'){
-                window.location(json.redirect);
+                window.location.replace(json.redirect);
             }else if(json.isValid === true && typeof json.success != 'undefined'){
                 const type = json.success.split(' ')[1];
                 if(type === 'adicionado'){

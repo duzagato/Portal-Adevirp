@@ -18,16 +18,20 @@
         }
 
         public function apelido($apelido){
-            if(self::stringFilter($apelido)){
-                extract($this->getSql('apelido', $apelido));
-                
-                if(!Database::query($sql, $params)){
-                    return true;
+            if(strlen($apelido) > 0){
+                if(self::stringFilter($apelido)){
+                    extract($this->getSql('apelido', $apelido));
+                    
+                    if(!Database::query($sql, $params)){
+                        return true;
+                    }else{
+                        return 'Usuário já está em uso';
+                    }
                 }else{
-                    return 'Usuário já está em uso';
+                    return 'O Nome de usuário pode conter apenas: letras, números e underline';
                 }
             }else{
-                return 'O Nome de usuário só pode conter letras, números e underline';
+                return true;
             }
         }
 
@@ -96,10 +100,14 @@
 
         public function senha($senha){
             $this->data['senha'] = $senha;
-            if(strlen($senha) >= 8 && strlen($senha) <= 30){
-                return true;
+            if(strlen($senha) > 0){
+                if(strlen($senha) >= 8 && strlen($senha) <= 30){
+                    return true;
+                }else{
+                    return 'A senha deve conter no mínimo 8 e no máximo 30 caracteres';
+                }
             }else{
-                return 'A senha deve conter no mínimo 8 e no máximo 30 caracteres';
+                return true;
             }
         }
 

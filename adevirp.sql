@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 29-Jul-2022 às 03:07
+-- Tempo de geração: 08-Ago-2022 às 19:45
 -- Versão do servidor: 10.4.24-MariaDB
 -- versão do PHP: 7.4.29
 
@@ -42,50 +42,69 @@ CREATE TABLE `agenda` (
 --
 
 INSERT INTO `agenda` (`agenda_id`, `professor_id`, `educando_id`, `agenda_titulo`, `agenda_dia`, `agenda_aula`, `agenda_inc_data`) VALUES
-(5, 9, 24, '', 'segunda-feira', 7, 1655111600),
-(7, 9, 17, '', 'quinta-feira', 8, 1641092400),
-(18, 9, 22, '', 'segunda-feira', 1, 1652519600),
-(19, 9, 18, '', 'segunda-feira', 2, 1655863600),
-(21, 9, 17, '', 'segunda-feira', 4, 1652519600);
+(5, 9, 1, '', 'segunda-feira', 7, 1655111600),
+(7, 9, 12, '', 'quinta-feira', 8, 1641092400),
+(18, 9, 15, '', 'segunda-feira', 1, 1652519600),
+(19, 9, 11, '', 'segunda-feira', 2, 1655863600),
+(21, 9, 4, '', 'segunda-feira', 4, 1652519600),
+(37, 10, 5, '', 'segunda-feira', 2, 1659753150),
+(38, 10, 3, '', 'segunda-feira', 1, 1659753281),
+(39, 10, 13, '', 'terca-feira', 3, 1658905267),
+(40, 10, 6, '', 'terca-feira', 4, 1636696986),
+(41, 10, 3, '', 'segunda-feira', 3, 1633460507),
+(42, 10, 11, '', 'quarta-feira', 1, 1636859904),
+(43, 10, 12, '', 'terca-feira', 2, 1658576660),
+(44, 10, 14, '', 'quinta-feira', 8, 1657910637),
+(45, 10, 15, '', 'quinta-feira', 1, 1646873114),
+(46, 10, 1, '', 'quinta-feira', 2, 1642721788),
+(47, 10, 15, '', 'quarta-feira', 3, 1651312218),
+(48, 10, 15, '', 'quinta-feira', 3, 1646386208),
+(49, 10, 11, '', 'quarta-feira', 4, 1635810205),
+(50, 10, 4, '', 'quarta-feira', 5, 1657790129),
+(51, 10, 5, '', 'quarta-feira', 6, 1643852952),
+(52, 10, 1, '', 'quinta-feira', 4, 1658000273),
+(53, 10, 15, '', 'terca-feira', 5, 1640369127),
+(54, 10, 11, '', 'quinta-feira', 2, 1652407458);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `colaborador`
+-- Estrutura da tabela `biblioteca_autor`
 --
 
-CREATE TABLE `colaborador` (
-  `colaborador_id` int(11) NOT NULL,
-  `info_id` int(11) NOT NULL,
-  `tipo_id` int(11) NOT NULL
+CREATE TABLE `biblioteca_autor` (
+  `biblioteca_autor_id` int(11) NOT NULL,
+  `biblioteca_autor_nome` varchar(100) NOT NULL,
+  `biblioteca_autor_slug` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `colaborador`
---
-
-INSERT INTO `colaborador` (`colaborador_id`, `info_id`, `tipo_id`) VALUES
-(4, 1, 2),
-(5, 3, 2);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `educando`
+-- Estrutura da tabela `biblioteca_categoria`
 --
 
-CREATE TABLE `educando` (
-  `educando_id` int(11) NOT NULL,
-  `info_id` int(11) NOT NULL,
-  `educando_visao` varchar(20) NOT NULL
+CREATE TABLE `biblioteca_categoria` (
+  `biblioteca_categoria_id` int(11) NOT NULL,
+  `biblioteca_categoria_nome` varchar(30) NOT NULL,
+  `biblioteca_categoria_slug` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- Extraindo dados da tabela `educando`
+-- Estrutura da tabela `biblioteca_livro`
 --
 
-INSERT INTO `educando` (`educando_id`, `info_id`, `educando_visao`) VALUES
-(5, 2, 'Baixa');
+CREATE TABLE `biblioteca_livro` (
+  `biblioteca_livro_id` int(11) NOT NULL,
+  `biblioteca_livro_capa` varchar(50) NOT NULL,
+  `biblioteca_livro_titulo` varchar(100) NOT NULL,
+  `biblioteca_livro_slug` varchar(100) NOT NULL,
+  `biblioteca_livro_sinopse` text NOT NULL,
+  `biblioteca_livro_arquivo` varchar(50) NOT NULL,
+  `biblioteca_autor_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -108,30 +127,20 @@ CREATE TABLE `impressao` (
 --
 
 INSERT INTO `impressao` (`impressao_id`, `impressao_arquivo`, `impressao_descricao`, `impressao_ampliada`, `impressao_braille`, `usuario_id`, `impressao_status`) VALUES
-(1, 'Apostilha informática.docx', '', 1, 0, 2, 0);
+(1, 'Apostilha informática.docx', '', 1, 0, 2, 0),
+(2, 'Apostilha informática.docx', '', 1, 0, 10, 0);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `info`
+-- Estrutura da tabela `livro_categoria`
 --
 
-CREATE TABLE `info` (
-  `info_id` int(11) NOT NULL,
-  `info_nome` varchar(20) NOT NULL,
-  `info_sobrenome` varchar(20) NOT NULL,
-  `info_email` varchar(50) NOT NULL,
-  `info_celular` varchar(20) NOT NULL
+CREATE TABLE `livro_categoria` (
+  `id` int(11) NOT NULL,
+  `biblioteca_livro_id` int(11) NOT NULL,
+  `biblioteca_categoria_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `info`
---
-
-INSERT INTO `info` (`info_id`, `info_nome`, `info_sobrenome`, `info_email`, `info_celular`) VALUES
-(1, 'Guilherme', 'Sandrin', 'guilherme.sandrin@gmail.com', '16988702222'),
-(2, 'Eduardo', 'Zagato', 'du.zagatto@hotmail.com', '16988708149'),
-(3, 'João', 'Pedro', 'joao@gmail.com', '16988101999');
 
 -- --------------------------------------------------------
 
@@ -150,7 +159,7 @@ CREATE TABLE `login_token` (
 --
 
 INSERT INTO `login_token` (`token_id`, `usuario_id`, `token`) VALUES
-(1, 2, '$2y$10$nD0sRDGuDypHSOPi.4vd6Oq5qUWoskfaTyo71l2mEKVcj3GjAHn6W');
+(11, 9, 'ad62f0904f2ecce');
 
 -- --------------------------------------------------------
 
@@ -181,12 +190,23 @@ INSERT INTO `projeto` (`projeto_id`, `usuario_id`, `projeto_nome`, `projeto_desc
 
 CREATE TABLE `relatorio` (
   `relatorio_id` int(11) NOT NULL,
-  `relatorio_atendimento_data` varchar(20) NOT NULL,
-  `relatorio_atendimento_descricao` text NOT NULL,
-  `voluntario_id` int(11) NOT NULL,
-  `professor_id` int(11) NOT NULL,
-  `relatorio_data` varchar(20) NOT NULL
+  `relatorio_descricao` text NOT NULL,
+  `relatorio_presenca` tinyint(1) NOT NULL,
+  `relatorio_atendimento_data` int(11) NOT NULL,
+  `relatorio_data` int(20) NOT NULL,
+  `educando_id` int(11) NOT NULL,
+  `professor_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `relatorio`
+--
+
+INSERT INTO `relatorio` (`relatorio_id`, `relatorio_descricao`, `relatorio_presenca`, `relatorio_atendimento_data`, `relatorio_data`, `educando_id`, `professor_id`) VALUES
+(4, 'Aula de soroban', 1, 20220201, 7, 15, 10),
+(9, 'sklAJSKLSJL\r\n', 1, 20220101, 7, 15, 10),
+(28, 'ldçajdkalkj', 1, 1655089200, 1659933831, 1, 9),
+(30, '', 0, 1656298800, 1659934110, 1, 9);
 
 -- --------------------------------------------------------
 
@@ -219,38 +239,41 @@ INSERT INTO `tipo` (`tipo_id`, `tipo_nome`) VALUES
 
 CREATE TABLE `usuario` (
   `usuario_id` int(11) NOT NULL,
-  `usuario_apelido` varchar(50) NOT NULL,
-  `usuario_senha` varchar(60) NOT NULL,
   `usuario_nome` varchar(20) NOT NULL,
   `usuario_sobrenome` varchar(20) NOT NULL,
-  `usuario_slug` varchar(100) NOT NULL,
   `usuario_email` varchar(50) NOT NULL,
   `usuario_celular` varchar(20) NOT NULL,
+  `usuario_genero` varchar(10) NOT NULL,
   `usuario_visao` varchar(10) NOT NULL,
-  `tipo_id` int(11) NOT NULL
+  `tipo_id` int(11) NOT NULL,
+  `usuario_apelido` varchar(30) NOT NULL,
+  `usuario_senha` varchar(60) NOT NULL,
+  `usuario_slug` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `usuario`
 --
 
-INSERT INTO `usuario` (`usuario_id`, `usuario_apelido`, `usuario_senha`, `usuario_nome`, `usuario_sobrenome`, `usuario_slug`, `usuario_email`, `usuario_celular`, `usuario_visao`, `tipo_id`) VALUES
-(2, 'admin', '$2y$10$RCLX3i2Csz9wzABcBr2m4Orngg8Gw5cczSOO90.awHAPfTvpIB8x2', 'Administração', 'Adevirp', '', 'admin@adevirp.com', '16988708149', 'Normal', 1),
-(9, 'guilhermesandrin', '$2y$10$cKx7gSyQbJ/Y5yHc9AkE5u5ouJIch4wmdFqkmSrtGezmdLj562gqq', 'Guilherme', 'Sandrin', 'guilherme-sandrin', 'guilherme.sandrin@gmail.com', '1699112200', 'Cego', 3),
-(10, 'joaopedro', '$2y$10$2HA5irWoNJ1yDGp9dRH3GuaMa3SGYnjIV3zikDx4VVS4KcCy60cQ.', 'João', 'Pedro', 'joao-pedro', 'joao@gmail.com', '16988102929', 'Normal', 3),
-(13, 'simonebeauvoir', '$2y$10$0C3X9pFGnInQ9Elarob0/u2dastXdqo5IPL5sN4FNOJmXixcWDLkW', 'Simone', 'De Beauvoir', 'simone-de-beauvoir', 'simone@gmail.com', '1699112200', 'Baixa', 3),
-(14, 'merylstreep', '$2y$10$nJQLEAD5rKwVqWQgz5QlteZU.ffP167AXe2.CzYhYR1F2en/cKRuu', 'Meryl', 'Streep', 'meryl-streep', 'meryl@gmail.com', '1698112999', 'Baixa', 5),
-(15, 'lauanaprado', '$2y$10$PHwSABUJU0.QzMxCyXfygOTN3zlhGmeOzlARE6esY4SyHUXA9vybm', 'Lauana', 'Prado', 'lauana-prado', 'lauana@gmail.com', '1999221100', 'Cego', 5),
-(16, 'janeausten', '$2y$10$Z9nE3XNJma9ZqidyiHkfQOD9Anzq93ehVq/IJpL1FvYC4rIXU.0Ja', 'Jane', 'Austen', 'jane-austen', 'jane@gmail.com', '1699221003', 'Cego', 5),
-(17, 'supermax', '$2y$10$j38Rn5VI5N7PmJjHwSRVJOPhOVqa1iSz3bfeWvymUMAE.faHQ287.', 'Max', 'Verstappen', 'max-verstappen', 'max@gmail.com', '1699212233', 'Cego', 5),
-(18, 'tombrady', '$2y$10$3lYpT8ODB3zMyxdz.C5fzuHA6yQdmYaYO1QgGhqkjpMap0s3it7VW', 'Tom', 'Brady', 'tom-brady', 'tom@gmail.com', '1699221100', 'Baixa', 5),
-(19, 'jonathancalleri', '$2y$10$0FuvseLjq0/tIsxrWKF9UOy/f8jaauYsv3S8pAgyh7YV1RD/bRRke', 'Jonathan', 'Calleri', 'jonathan-calleri', 'jonathan@gmail.com', '1688991100', 'Baixa', 5),
-(20, 'rogerioceni', '$2y$10$zu38AI7qrCagbp9e/URMuev7EVvFiDhmi0QDBiknIlIQVYr3V2EhK', 'Rogério', 'Ceni', 'rogerio-ceni', 'rogerioceni@gmail.com', '1699110032', 'Baixa', 5),
-(21, 'aynrand', '$2y$10$LMJ.fkL/BJZZI/8GJpGKZOUJZfGG7OrEtXF6W6fssdPliEPUy/YVS', 'Ayn', 'Rand', 'ayn-rand', 'ayn@gmail.com', '1699201221', 'Cego', 5),
-(22, 'jkrowling', '$2y$10$EQf23gdIH46N6XPxrhVbfe5mUfOVpxJfykQCiBC6jcSaKfiw1Dh7C', 'Joanne', 'Kathleen Rowling', 'joanne-kathleen-rowling', 'jk@gmail.com', '16992103201', 'Baixa', 5),
-(23, 'agathachristie', '$2y$10$weHOajHTTmAmDUEkmo8AgeWtB520nfxHARv1owpzNPkbA4YFfM/gq', 'Agatha', 'Christie', 'agatha-christie', 'agatha@gmail.com', '1699210391', 'Cego', 5),
-(24, 'magnuscarlsen', '$2y$10$qpjwgvYnTf1ibH4Z06ATA.PaPlekQ3ErBufTWKWX/MPDQxk1bnfqq', 'Magnus', 'Carlsen', 'magnus-carlsen', 'magnus@gmail.com', '16992010141', 'Baixa', 5),
-(25, 'mises', '$2y$10$cgurnX693EqiFs00gDzRkewetOzTs1tNIhAgvdEysacjxw9SQhWl.', 'Ludwig', 'Von Mises', 'ludwig-von-mises', 'mises@gmail.com', '1693019442', 'Baixa', 3);
+INSERT INTO `usuario` (`usuario_id`, `usuario_nome`, `usuario_sobrenome`, `usuario_email`, `usuario_celular`, `usuario_genero`, `usuario_visao`, `tipo_id`, `usuario_apelido`, `usuario_senha`, `usuario_slug`) VALUES
+(1, 'Eduardo', 'Zagato', 'duzagatto@hotmail.com', '16988708149', 'Masculino', 'Baixa', 5, 'eduardozagato', '$2y$10$3bFVey1oLDq8S9LXY7DekOyB0NXM0R./pOeh37sYJfdxr.7PLHKLm', 'eduardo-zagato'),
+(2, 'Administração', 'Adevirp', 'admin@adevirp.com', '1639131900', 'Masculino', 'Normal', 1, 'admin', '$2y$10$IsNgj1QOQVQxq0wnvElmye8OIykiRd/T96TQFSPN/h57wg1xL.tiy', 'administracao-adevirp'),
+(3, 'Max', 'Verstappen', 'max@gmail.com', '16998381938', 'Masculino', 'Cego', 5, 'maxverstappen', '$2y$10$ZNQm87P9VVemlE4i4qCSI.aoAUxgF50TCJgsfMImUb36O77cc6qDy', 'max-verstappen'),
+(4, 'Rogério', 'Ceni', 'rc@gmail.com', '16998389429', 'Masculino', 'Baixa', 5, 'rogerioceni', '$2y$10$hbOSv1ce43DmeHohgVeCWuE09q/nIyBEiBrTQTZNtEXR4ScoQ6Oku', 'rogerio-ceni'),
+(5, 'Ayn', 'Rand', 'ayn@gmail.com', '15986838291', 'Feminino', 'Cego', 5, 'aynrand', '$2y$10$GAO.1MoAEdgZFsRD2gB6Gu3BXIohXXQx0gloQjIhmb0QR23zkHuIq', 'ayn-rand'),
+(6, 'Joanne', 'Kathleen Rowling', 'jkrowling@gmail.com', '1699110022', 'Feminino', 'Cego', 5, 'jkrowling', '$2y$10$akvzN1tfTecmUYGO3t/JueTB5DSjEDEZkw3gd/nOZwadgc4ms0kHS', 'joanne-kathleen-rowling'),
+(7, 'Jane', 'Austen', 'jane@gmail.com', '1999221100', 'Feminino', 'Normal', 6, 'jane', '$2y$10$EkNQcc7CfZ2RndW0Uak3IuxHT4kR1ZhKTSLWsKEujEPySZ4.lPkYi', 'jane-austen'),
+(8, 'Magnus', 'Carlsen', 'magnus@gmail.com', '1699112200', 'Masculino', 'Baixa', 5, 'magnuscarlsen', '$2y$10$7wMjYObRHbhCpKeP01eaGOPeur1M2Rzv3a4rrUvxUiTEoGBmykHAK', 'magnus-carlsen'),
+(9, 'João', 'Pedro', 'joaopedro@gmail.com', '1699221003', 'Masculino', 'Normal', 3, 'joaopedro', '$2y$10$S2jz5.ApfZGq9dznQmG6iOFw6z0RH3wTA6A6h/69taML5AHFtfLly', 'joao-pedro'),
+(10, 'Guilherme', 'Sandrin', 'guilherme.sandrin@gmail.com', '1999221100', 'Masculino', 'Cego', 3, 'guilhermesandrin', '$2y$10$Zcpr028hfEM5tr9hCCJzC.8SJMr/r6h9lQ1JeYvjv88GSPhKVbTta', 'guilherme-sandrin'),
+(11, 'Tess', 'Gerritsen', 'tess@gmail.com', '16988102929', 'Feminino', 'Cego', 5, 'tess', '$2y$10$8ZgHm7doEufnHMzYhdjfY.EkeNKRcS.zJ0GmIWy0mEIfWUT5bhqUm', 'tess-gerritsen'),
+(12, 'Noel', 'Gallagher', 'noel@gmail.com', '16988102929', 'Masculino', 'Baixa', 5, 'noel', '$2y$10$SGUlvoT4ioCmxj6PN0lQVusClijqbFSR3t45El/JMk/BnanX8Y43q', 'noel-gallagher'),
+(13, 'Jonathan', 'Calleri', 'jonathan@gmail.com', '1699110022', 'Masculino', 'Baixa', 5, 'calleri', '$2y$10$jlSVh2XRirMJ7w2lhE419eLD0n8kemwCDxS0m6m5RF0zvyGqo80Vq', 'jonathan-calleri'),
+(14, 'Hermione', 'Granger', 'hermione@gmail.com', '1699110022', 'Feminino', 'Cego', 5, 'hermione', '$2y$10$P4FCqw/KydH1gmFRIEwCK.ak7hSjP.iIbu5YAE9Nkss0sluB89OLG', 'hermione-granger'),
+(15, 'Kobe', 'Bryant', 'kobe@gmail.com', '16988102929', 'Masculino', 'Baixa', 5, 'kobe', '$2y$10$YRKnhV2YvAKLNT3nDLOmp.DUorfTF7EUEaVZ/EqiidTSkooE3QyCi', 'kobe-bryant'),
+(16, 'Ludwig', 'Von Mises', 'ludwig@gmail.com', '16988102929', 'Masculino', 'Normal', 3, 'mises', '$2y$10$nHTx5et08JtjTbjaUdeIPu256kORIBU4nbvgU2ObYw92JoSR9ZK7G', 'ludwig-von-mises'),
+(17, 'Edward', 'Snowden', 'edward@gmail.com', '16988102929', 'Masculino', 'Normal', 2, 'snowden', '$2y$10$lVKJhqv/4K.CKAoxWuNErO/MK0V6lnkSbrurY9qOCQZYgc8reaeOC', 'edward-snowden'),
+(18, 'Axl', 'Rose', 'axl@gmail.com', '16988102929', 'Masculino', 'Baixa', 6, 'axl', '$2y$10$v61qt4jbPTHyxcLLuV2FzuZ5O919of2X1EZnNlAoV9bkK..lyQnvG', 'axl-rose');
 
 --
 -- Índices para tabelas despejadas
@@ -265,19 +288,23 @@ ALTER TABLE `agenda`
   ADD KEY `agenda_ibfk_1` (`educando_id`);
 
 --
--- Índices para tabela `colaborador`
+-- Índices para tabela `biblioteca_autor`
 --
-ALTER TABLE `colaborador`
-  ADD PRIMARY KEY (`colaborador_id`),
-  ADD KEY `info_id` (`info_id`),
-  ADD KEY `tipo_id` (`tipo_id`);
+ALTER TABLE `biblioteca_autor`
+  ADD PRIMARY KEY (`biblioteca_autor_id`);
 
 --
--- Índices para tabela `educando`
+-- Índices para tabela `biblioteca_categoria`
 --
-ALTER TABLE `educando`
-  ADD PRIMARY KEY (`educando_id`),
-  ADD KEY `info_id` (`info_id`);
+ALTER TABLE `biblioteca_categoria`
+  ADD PRIMARY KEY (`biblioteca_categoria_id`);
+
+--
+-- Índices para tabela `biblioteca_livro`
+--
+ALTER TABLE `biblioteca_livro`
+  ADD PRIMARY KEY (`biblioteca_livro_id`),
+  ADD KEY `biblioteca_autor_id` (`biblioteca_autor_id`);
 
 --
 -- Índices para tabela `impressao`
@@ -287,10 +314,12 @@ ALTER TABLE `impressao`
   ADD KEY `usuario_id` (`usuario_id`);
 
 --
--- Índices para tabela `info`
+-- Índices para tabela `livro_categoria`
 --
-ALTER TABLE `info`
-  ADD PRIMARY KEY (`info_id`);
+ALTER TABLE `livro_categoria`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `biblioteca_categoria_id` (`biblioteca_categoria_id`),
+  ADD KEY `biblioteca_livro_id` (`biblioteca_livro_id`);
 
 --
 -- Índices para tabela `login_token`
@@ -304,6 +333,12 @@ ALTER TABLE `login_token`
 --
 ALTER TABLE `projeto`
   ADD PRIMARY KEY (`projeto_id`);
+
+--
+-- Índices para tabela `relatorio`
+--
+ALTER TABLE `relatorio`
+  ADD PRIMARY KEY (`relatorio_id`);
 
 --
 -- Índices para tabela `tipo`
@@ -325,43 +360,55 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de tabela `agenda`
 --
 ALTER TABLE `agenda`
-  MODIFY `agenda_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `agenda_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
--- AUTO_INCREMENT de tabela `colaborador`
+-- AUTO_INCREMENT de tabela `biblioteca_autor`
 --
-ALTER TABLE `colaborador`
-  MODIFY `colaborador_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+ALTER TABLE `biblioteca_autor`
+  MODIFY `biblioteca_autor_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `educando`
+-- AUTO_INCREMENT de tabela `biblioteca_categoria`
 --
-ALTER TABLE `educando`
-  MODIFY `educando_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE `biblioteca_categoria`
+  MODIFY `biblioteca_categoria_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `biblioteca_livro`
+--
+ALTER TABLE `biblioteca_livro`
+  MODIFY `biblioteca_livro_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `impressao`
 --
 ALTER TABLE `impressao`
-  MODIFY `impressao_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `impressao_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de tabela `info`
+-- AUTO_INCREMENT de tabela `livro_categoria`
 --
-ALTER TABLE `info`
-  MODIFY `info_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+ALTER TABLE `livro_categoria`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `login_token`
 --
 ALTER TABLE `login_token`
-  MODIFY `token_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `token_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de tabela `projeto`
 --
 ALTER TABLE `projeto`
   MODIFY `projeto_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de tabela `relatorio`
+--
+ALTER TABLE `relatorio`
+  MODIFY `relatorio_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de tabela `tipo`
@@ -373,43 +420,24 @@ ALTER TABLE `tipo`
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Restrições para despejos de tabelas
 --
 
 --
--- Limitadores para a tabela `agenda`
+-- Limitadores para a tabela `biblioteca_livro`
 --
-ALTER TABLE `agenda`
-  ADD CONSTRAINT `agenda_ibfk_1` FOREIGN KEY (`educando_id`) REFERENCES `usuario` (`usuario_id`),
-  ADD CONSTRAINT `agenda_ibfk_2` FOREIGN KEY (`professor_id`) REFERENCES `usuario` (`usuario_id`);
+ALTER TABLE `biblioteca_livro`
+  ADD CONSTRAINT `biblioteca_livro_ibfk_1` FOREIGN KEY (`biblioteca_autor_id`) REFERENCES `biblioteca_autor` (`biblioteca_autor_id`);
 
 --
--- Limitadores para a tabela `colaborador`
+-- Limitadores para a tabela `livro_categoria`
 --
-ALTER TABLE `colaborador`
-  ADD CONSTRAINT `colaborador_ibfk_2` FOREIGN KEY (`info_id`) REFERENCES `info` (`info_id`),
-  ADD CONSTRAINT `colaborador_ibfk_3` FOREIGN KEY (`tipo_id`) REFERENCES `tipo` (`tipo_id`);
-
---
--- Limitadores para a tabela `educando`
---
-ALTER TABLE `educando`
-  ADD CONSTRAINT `educando_ibfk_1` FOREIGN KEY (`info_id`) REFERENCES `info` (`info_id`);
-
---
--- Limitadores para a tabela `impressao`
---
-ALTER TABLE `impressao`
-  ADD CONSTRAINT `impressao_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`usuario_id`);
-
---
--- Limitadores para a tabela `login_token`
---
-ALTER TABLE `login_token`
-  ADD CONSTRAINT `login_token_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`usuario_id`);
+ALTER TABLE `livro_categoria`
+  ADD CONSTRAINT `livro_categoria_ibfk_1` FOREIGN KEY (`biblioteca_categoria_id`) REFERENCES `biblioteca_categoria` (`biblioteca_categoria_id`),
+  ADD CONSTRAINT `livro_categoria_ibfk_2` FOREIGN KEY (`biblioteca_livro_id`) REFERENCES `biblioteca_livro` (`biblioteca_livro_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

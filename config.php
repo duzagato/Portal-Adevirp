@@ -29,10 +29,13 @@
 	$routes['/example'] = '/escolas/abrir';
 	$routes['/example/{titulo}'] = '/posts/open/:titulo';
 	$routes['/example/{id}/{titulo}'] = '/galeria/abrir/:id/:titulo';
+	$routes['/agenda/{usuario}'] = '/agenda/abrir/:usuario';
+	$routes['/agenda/{professor}/adicionar/{dia}/{aula}'] = '/agenda/adicionar/:professor/:dia/:aula';
+	$routes['/relatorios/{usuario}'] = '/relatorios/abrir/:usuario';
 	$routes['/professor/{professor}'] = '/professor/open/:professor';
-	$routes['/professor/{professor}/agenda'] = '/agenda/open/:professor';
-	$routes['/professor/{professor}/agenda/adicionar/{dia}/{aula}'] = '/agenda/adicionar/:professor/:dia/:aula';
-	$routes['/professor/{professor}/agenda/excluir/{id}'] = '/agenda/excluir/:id/:professor';
-	$routes['/professor/{professor}/agenda/cexcluir/{id}'] = '/agenda/cexcluir/:id/:professor';
 	$routes['/relatorios/{professor}'] = '/relatorios/open/:professor';
+	$routes['/{professor}/relatorios/{id}'] = '/relatorios/ver/:professor/:id';
+	$routes['/relatorios/{professor}/preencher/{aluno}/{time}'] = '/relatorios/preencher/:aluno/:time';
+	$routes['/relatorios/{professor}/falta/{aluno}/{time}'] = '/relatorios/falta/:aluno/:time';
+	$routes['/relatorios/{professor}/cfalta/{aluno}/{time}'] = '/relatorios/cfalta/:aluno/:time';
 ?>

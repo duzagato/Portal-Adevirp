@@ -28,14 +28,14 @@
                                     echo ' ('.$agenda_titulo.')';
                                 }
 
-                                echo ' <a href="'.URL.'professor/'.$usuario_slug.'/agenda/excluir/'.$agenda_id.'">x</a>';
+                                echo ' <a href="'.URL.'agenda/excluir/'.$agenda_id.'">x</a>';
 
                                 echo '<br>';
                             }
                         }
                     ?>
                     </span>
-                    <a href="<?php echo URL.'professor/'.$usuario_slug.'/agenda/adicionar/'.Helpers::strToSlug(Helpers::getDaysByNumber()[$d]).'/'.$i ;?>">Adicionar</a>
+                    <a href="<?php echo URL.'agenda/'.$usuario_slug.'/adicionar/'.Helpers::strToSlug(Helpers::getDaysByNumber()[$d]).'/'.$i ;?>">Adicionar</a>
                 </td>
             <?php }; ?>
         </tbody>

@@ -1,9 +1,9 @@
 <?php 
-    $name = 'professor/'.$slug.'/agenda/adicionar/'.Helpers::strToSlug($dia).'/'.$aula
+    $name = 'agenda/adicionar/'.$slug.'/'.Helpers::strToSlug($dia).'/'.$aula
 ?>
 
 <h2>Adicionar compromisso para a aula <?php echo $aula;?> de <?php echo $dia; ?></h2>
-<a href="<?php echo URL.'professor/'.$slug.'/agenda/'; ?>">voltar</a>
+<a href="<?php echo URL.'agenda/'.$slug; ?>">voltar</a>
 
 <form method="post" name="<?php echo $name; ?>" id="agenda_add">
     <br><label for="educando_id">Educando: </label>

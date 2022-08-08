@@ -51,6 +51,8 @@
         }
 
         public static function form_validation($post, $files){
+            self::$form = array();
+            $data = array();
             unset($post['form_submit']);
             if($_FILES != array()){
                 foreach($files as $key => $value){
@@ -69,7 +71,7 @@
             self::$form['form_data'] = $data + $post;
             $v = new ValidationHelper();
 
-            foreach($data as $key => $value){
+            foreach($post as $key => $value){
                 $name = explode('_', $key);
                 $v->setTable($name[0]);
                 $method = $name[count($name)-1];
@@ -80,7 +82,7 @@
                     self::$form['alerts'][$key] = true;
                 }
             }
-
+            
             self::setIsValid(self::$form['alerts']);
         }
 
