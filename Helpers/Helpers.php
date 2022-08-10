@@ -105,7 +105,15 @@
             $slug = iconv('UTF-8','ASCII//TRANSLIT',$text);
             $slug = preg_replace("/['|^|`|~|]/","",$slug);
             $slug = preg_replace('/["]/','',$slug);
-            return strtolower(preg_replace('/[" _"]/','-',$slug));
+            $slug = strtolower(preg_replace('/[" _"]/','-',$slug));
+            $slug = explode('-', $slug);
+            foreach($slug as $s){
+                if($s !== ''){
+                    $array[] = $s;
+                }
+            }
+            $slug = implode('-', $array);
+            return $slug;
         }
         
         public static function generateToken($bytes){
@@ -135,6 +143,12 @@
         public static function expireCookie($name){
             unset($_COOKIE[$name]);
             setcookie($name, null, -1, '/');
+        }
+
+        public static function setFileName($name, $newname){
+            $extension = explode('.', $name)[1];
+            
+            return $newname.'.'.$extension;
         }
 
         public static function uploadFile($file, $folder){

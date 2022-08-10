@@ -2,6 +2,8 @@
 	date_default_timezone_set('America/Sao_Paulo');
 	$scriptName = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
 	define('REQUEST', '/'. substr_replace(trim($_SERVER['REQUEST_URI'], '/'), '', 0, strlen($scriptName)));
+	define('PATH_LIVROS_CAPAS', 'assets/uploads/biblioteca/livros/capas/');
+	define('PATH_LIVROS_AUDIOS', 'assets/uploads/biblioteca/livros/audios/');
 	$environment = 'dev';
 
 	if($environment === 'dev'){

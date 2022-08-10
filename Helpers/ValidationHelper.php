@@ -6,11 +6,18 @@
 
         public function getMethod($file_name){
             $methods = array(
-                'docx'=>'text_file'
+                'docx'=>'text_file',
+                'mp3' => 'audio_file',
+                'jpeg' => 'image_file',
+                'jpg' => 'image_file'
             );
-            $extension = explode('.', $file_name)[1];
-
-            return $methods[$extension];
+            
+            if(isset(explode('.', $file_name)[1])){
+                $extension = explode('.', $file_name)[1];
+                return $methods[$extension];
+            }else{
+                return false;
+            }
         }
 
         public function setTable($table){

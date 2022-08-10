@@ -19,7 +19,7 @@
                 }
                 $data['form_data']['impressao_ampliada'] = (isset($data['form_data']['impressao_ampliada']) ? 1 : 0);
                 $data['form_data']['impressao_braille'] = (isset($data['form_data']['impressao_braille']) ? 1 : 0);
-                $data['form_data']['usuario_id'] = $_COOKIE['ADEVIRP_ID'];
+                $data['form_data']['usuario_id'] = $_SESSION['ADEVIRP_ID'];
                 $data['form_data']['status'] = 0;
 
                 Database::dbAction('add', $data['form_data'], 'impressao');

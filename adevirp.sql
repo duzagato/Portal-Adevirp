@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 08-Ago-2022 às 19:45
+-- Tempo de geração: 10-Ago-2022 às 10:35
 -- Versão do servidor: 10.4.24-MariaDB
 -- versão do PHP: 7.4.29
 
@@ -69,6 +69,23 @@ INSERT INTO `agenda` (`agenda_id`, `professor_id`, `educando_id`, `agenda_titulo
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `atividade`
+--
+
+CREATE TABLE `atividade` (
+  `atividade_id` int(11) NOT NULL,
+  `atividade_titulo` varchar(50) NOT NULL,
+  `atividade_descricao` text NOT NULL,
+  `atividade_dia` varchar(20) NOT NULL,
+  `atividade_aula` int(11) NOT NULL,
+  `atividade_vagas` int(11) NOT NULL,
+  `sala_id` int(11) NOT NULL,
+  `atividade_aprovacao` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `biblioteca_autor`
 --
 
@@ -77,6 +94,13 @@ CREATE TABLE `biblioteca_autor` (
   `biblioteca_autor_nome` varchar(100) NOT NULL,
   `biblioteca_autor_slug` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `biblioteca_autor`
+--
+
+INSERT INTO `biblioteca_autor` (`biblioteca_autor_id`, `biblioteca_autor_nome`, `biblioteca_autor_slug`) VALUES
+(1, 'William Shakespeare', 'william-shakespeare');
 
 -- --------------------------------------------------------
 
@@ -90,6 +114,27 @@ CREATE TABLE `biblioteca_categoria` (
   `biblioteca_categoria_slug` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Extraindo dados da tabela `biblioteca_categoria`
+--
+
+INSERT INTO `biblioteca_categoria` (`biblioteca_categoria_id`, `biblioteca_categoria_nome`, `biblioteca_categoria_slug`) VALUES
+(1, 'Biografia', 'biografia'),
+(2, 'Autobiografia', 'autobiografia'),
+(3, 'Tecnologia', 'tecnologia'),
+(4, 'Fantasia', 'fantasia'),
+(5, 'Ficção', 'ficção'),
+(6, 'Literatura Estrangeira', 'literatura-estrangeira'),
+(7, 'Thriller', 'thriller'),
+(8, 'Mistério', 'misterio'),
+(9, 'Romance Policial', 'romance-policial'),
+(10, 'Distopia', 'distopia'),
+(12, 'Economia', 'economia'),
+(13, 'Finanças', 'financas'),
+(14, 'Não-Ficção', 'nao-ficcao'),
+(15, 'Literatura Brasileira', 'literatura-brasileira'),
+(17, 'Romance', 'romance');
+
 -- --------------------------------------------------------
 
 --
@@ -98,12 +143,50 @@ CREATE TABLE `biblioteca_categoria` (
 
 CREATE TABLE `biblioteca_livro` (
   `biblioteca_livro_id` int(11) NOT NULL,
-  `biblioteca_livro_capa` varchar(50) NOT NULL,
+  `biblioteca_livro_arquivo` varchar(100) NOT NULL,
+  `biblioteca_livro_capa` varchar(100) NOT NULL,
   `biblioteca_livro_titulo` varchar(100) NOT NULL,
-  `biblioteca_livro_slug` varchar(100) NOT NULL,
   `biblioteca_livro_sinopse` text NOT NULL,
-  `biblioteca_livro_arquivo` varchar(50) NOT NULL,
-  `biblioteca_autor_id` int(11) NOT NULL
+  `biblioteca_livro_paginas` int(11) NOT NULL,
+  `biblioteca_autor_id` int(11) NOT NULL,
+  `biblioteca_livro_slug` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `biblioteca_livro`
+--
+
+INSERT INTO `biblioteca_livro` (`biblioteca_livro_id`, `biblioteca_livro_arquivo`, `biblioteca_livro_capa`, `biblioteca_livro_titulo`, `biblioteca_livro_sinopse`, `biblioteca_livro_paginas`, `biblioteca_autor_id`, `biblioteca_livro_slug`) VALUES
+(1, 'hamlet.mp3', 'hamlet.jpg', 'Hamlet', 'Hamlet, de William Shakespeare, é uma obra clássica permanentemente atual pela força com que trata de problemas fundamentais da condição humana. A obsessão de uma vingança onde a dúvida e o desespero concentrados nos monólogos do príncipe Hamlet adquirem uma impressionante dimensão trágica. Nesta versão, Millôr Fernandes, crítico contumaz dos \"eruditos\" e das \"eruditices\" que – nas traduções – acabam por comprometer o sentido dramático e poético de Shakespeare, demonstra como o \"Bardo\" pode ser lido em português com a poderosa dramaticidade do texto original. Aqui, Millôr resgata o prazer de ler Shakespeare, o maior dramaturgo da literatura universal, em uma das suas obras mais famosas.', 80, 1, 'hamlet'),
+(3, 'hamlet.mp3', 'hamlet.jpg', 'Hamlet - O Príncipe da Dinamarca', '        Hamlet, de William Shakespeare, é uma obra clássica permanentemente atual pela força com que trata de problemas fundamentais da condição humana. A obsessão de uma vingança onde a dúvida e o desespero concentrados nos monólogos do príncipe Hamlet adquirem uma impressionante dimensão trágica. Nesta versão, Millôr Fernandes, crítico contumaz dos \"eruditos\" e das \"eruditices\" que – nas traduções – acabam por comprometer o sentido dramático e poético de Shakespeare, demonstra como o \"Bardo\" pode ser lido em português com a poderosa dramaticidade do texto original. Aqui, Millôr resgata o prazer de ler Shakespeare, o maior dramaturgo da literatura universal, em uma das suas obras mais famosas.    ', 80, 1, 'hamlet-o-principe-da-dinamarca');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `download_arquivo`
+--
+
+CREATE TABLE `download_arquivo` (
+  `download_arquivo_id` int(11) NOT NULL,
+  `download_arquivo_titulo` varchar(100) NOT NULL,
+  `download_arquivo_descricao` text NOT NULL,
+  `download_arquivo_nome` varchar(50) NOT NULL,
+  `download_arquivo_formato` varchar(10) NOT NULL,
+  `download_arquivo_tamanho` int(11) NOT NULL,
+  `download_arquivo_categoria` int(11) NOT NULL,
+  `download_arquivo_slug` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `download_categoria`
+--
+
+CREATE TABLE `download_categoria` (
+  `download_categoria_id` int(11) NOT NULL,
+  `download_categoria_nome` varchar(30) NOT NULL,
+  `download_categoria_slug` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -128,7 +211,9 @@ CREATE TABLE `impressao` (
 
 INSERT INTO `impressao` (`impressao_id`, `impressao_arquivo`, `impressao_descricao`, `impressao_ampliada`, `impressao_braille`, `usuario_id`, `impressao_status`) VALUES
 (1, 'Apostilha informática.docx', '', 1, 0, 2, 0),
-(2, 'Apostilha informática.docx', '', 1, 0, 10, 0);
+(2, 'Apostilha informática.docx', '', 1, 0, 10, 0),
+(3, 'Apostilha informática 06-08-2022.docx', '', 1, 0, 2, 0),
+(4, 'Apostilha informática 06-08-2022.docx', '', 1, 0, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -137,10 +222,18 @@ INSERT INTO `impressao` (`impressao_id`, `impressao_arquivo`, `impressao_descric
 --
 
 CREATE TABLE `livro_categoria` (
-  `id` int(11) NOT NULL,
+  `livro_categoria_id` int(11) NOT NULL,
   `biblioteca_livro_id` int(11) NOT NULL,
   `biblioteca_categoria_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `livro_categoria`
+--
+
+INSERT INTO `livro_categoria` (`livro_categoria_id`, `biblioteca_livro_id`, `biblioteca_categoria_id`) VALUES
+(1, 1, 6),
+(22, 3, 6);
 
 -- --------------------------------------------------------
 
@@ -159,7 +252,45 @@ CREATE TABLE `login_token` (
 --
 
 INSERT INTO `login_token` (`token_id`, `usuario_id`, `token`) VALUES
-(11, 9, 'ad62f0904f2ecce');
+(12, 2, 'ad62f1c670158a3');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `notificacao`
+--
+
+CREATE TABLE `notificacao` (
+  `notificacao_id` int(11) NOT NULL,
+  `notificacao_conteudo` text NOT NULL,
+  `usuario_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `professor_sala`
+--
+
+CREATE TABLE `professor_sala` (
+  `professor_sala_id` int(11) NOT NULL,
+  `professor_id` int(11) NOT NULL,
+  `sala_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `programa_edicao`
+--
+
+CREATE TABLE `programa_edicao` (
+  `programa_edicao_id` int(11) NOT NULL,
+  `programa_edicao_titulo` varchar(50) NOT NULL,
+  `programa_edicao_descricao` text NOT NULL,
+  `programa_edicao_live` int(11) NOT NULL,
+  `radio_programa_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -181,6 +312,22 @@ CREATE TABLE `projeto` (
 
 INSERT INTO `projeto` (`projeto_id`, `usuario_id`, `projeto_nome`, `projeto_descricao`, `projeto_data`) VALUES
 (2, 9, 'Apostila de Informática', 'Apostila de informática.', '26/07/2022');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `radio_programa`
+--
+
+CREATE TABLE `radio_programa` (
+  `radio_programa_id` int(11) NOT NULL,
+  `radio_programa_nome` varchar(100) NOT NULL,
+  `radio_programa_descricao` text NOT NULL,
+  `radio_programa_dia` varchar(20) NOT NULL,
+  `radio_programa_inicio` varchar(5) NOT NULL,
+  `radio_programa_fim` varchar(5) NOT NULL,
+  `usuario_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -207,6 +354,18 @@ INSERT INTO `relatorio` (`relatorio_id`, `relatorio_descricao`, `relatorio_prese
 (9, 'sklAJSKLSJL\r\n', 1, 20220101, 7, 15, 10),
 (28, 'ldçajdkalkj', 1, 1655089200, 1659933831, 1, 9),
 (30, '', 0, 1656298800, 1659934110, 1, 9);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `sala`
+--
+
+CREATE TABLE `sala` (
+  `sala_id` int(11) NOT NULL,
+  `sala_nome` varchar(50) NOT NULL,
+  `sala_numero` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -288,6 +447,12 @@ ALTER TABLE `agenda`
   ADD KEY `agenda_ibfk_1` (`educando_id`);
 
 --
+-- Índices para tabela `atividade`
+--
+ALTER TABLE `atividade`
+  ADD PRIMARY KEY (`atividade_id`);
+
+--
 -- Índices para tabela `biblioteca_autor`
 --
 ALTER TABLE `biblioteca_autor`
@@ -307,6 +472,18 @@ ALTER TABLE `biblioteca_livro`
   ADD KEY `biblioteca_autor_id` (`biblioteca_autor_id`);
 
 --
+-- Índices para tabela `download_arquivo`
+--
+ALTER TABLE `download_arquivo`
+  ADD PRIMARY KEY (`download_arquivo_id`);
+
+--
+-- Índices para tabela `download_categoria`
+--
+ALTER TABLE `download_categoria`
+  ADD PRIMARY KEY (`download_categoria_id`);
+
+--
 -- Índices para tabela `impressao`
 --
 ALTER TABLE `impressao`
@@ -317,7 +494,7 @@ ALTER TABLE `impressao`
 -- Índices para tabela `livro_categoria`
 --
 ALTER TABLE `livro_categoria`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`livro_categoria_id`),
   ADD KEY `biblioteca_categoria_id` (`biblioteca_categoria_id`),
   ADD KEY `biblioteca_livro_id` (`biblioteca_livro_id`);
 
@@ -329,16 +506,46 @@ ALTER TABLE `login_token`
   ADD KEY `user_id` (`usuario_id`);
 
 --
+-- Índices para tabela `notificacao`
+--
+ALTER TABLE `notificacao`
+  ADD PRIMARY KEY (`notificacao_id`);
+
+--
+-- Índices para tabela `professor_sala`
+--
+ALTER TABLE `professor_sala`
+  ADD PRIMARY KEY (`professor_sala_id`);
+
+--
+-- Índices para tabela `programa_edicao`
+--
+ALTER TABLE `programa_edicao`
+  ADD PRIMARY KEY (`programa_edicao_id`);
+
+--
 -- Índices para tabela `projeto`
 --
 ALTER TABLE `projeto`
   ADD PRIMARY KEY (`projeto_id`);
 
 --
+-- Índices para tabela `radio_programa`
+--
+ALTER TABLE `radio_programa`
+  ADD PRIMARY KEY (`radio_programa_id`);
+
+--
 -- Índices para tabela `relatorio`
 --
 ALTER TABLE `relatorio`
   ADD PRIMARY KEY (`relatorio_id`);
+
+--
+-- Índices para tabela `sala`
+--
+ALTER TABLE `sala`
+  ADD PRIMARY KEY (`sala_id`);
 
 --
 -- Índices para tabela `tipo`
@@ -363,40 +570,76 @@ ALTER TABLE `agenda`
   MODIFY `agenda_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
+-- AUTO_INCREMENT de tabela `atividade`
+--
+ALTER TABLE `atividade`
+  MODIFY `atividade_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `biblioteca_autor`
 --
 ALTER TABLE `biblioteca_autor`
-  MODIFY `biblioteca_autor_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `biblioteca_autor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `biblioteca_categoria`
 --
 ALTER TABLE `biblioteca_categoria`
-  MODIFY `biblioteca_categoria_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `biblioteca_categoria_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de tabela `biblioteca_livro`
 --
 ALTER TABLE `biblioteca_livro`
-  MODIFY `biblioteca_livro_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `biblioteca_livro_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `download_arquivo`
+--
+ALTER TABLE `download_arquivo`
+  MODIFY `download_arquivo_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `download_categoria`
+--
+ALTER TABLE `download_categoria`
+  MODIFY `download_categoria_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `impressao`
 --
 ALTER TABLE `impressao`
-  MODIFY `impressao_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `impressao_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `livro_categoria`
 --
 ALTER TABLE `livro_categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `livro_categoria_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de tabela `login_token`
 --
 ALTER TABLE `login_token`
-  MODIFY `token_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `token_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT de tabela `notificacao`
+--
+ALTER TABLE `notificacao`
+  MODIFY `notificacao_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `professor_sala`
+--
+ALTER TABLE `professor_sala`
+  MODIFY `professor_sala_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `programa_edicao`
+--
+ALTER TABLE `programa_edicao`
+  MODIFY `programa_edicao_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `projeto`
@@ -405,10 +648,22 @@ ALTER TABLE `projeto`
   MODIFY `projeto_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de tabela `radio_programa`
+--
+ALTER TABLE `radio_programa`
+  MODIFY `radio_programa_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `relatorio`
 --
 ALTER TABLE `relatorio`
   MODIFY `relatorio_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT de tabela `sala`
+--
+ALTER TABLE `sala`
+  MODIFY `sala_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `tipo`

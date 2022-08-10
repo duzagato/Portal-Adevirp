@@ -16,8 +16,8 @@
 			return self::query('SELECT * FROM '.$table, array());
 		}
 
-		public static function getTableCount($table, $column = '*'){
-			return self::query('SELECT COUNT('.$column.') FROM '.$table, array())[0][0];
+		public static function getTableCount($table){
+			return self::query('SELECT COUNT('.$table.'_id) FROM '.$table, array())[0][0];
 		}
 
 		public static function query($sql, $params = array()){

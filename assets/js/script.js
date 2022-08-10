@@ -8,7 +8,7 @@ forms.forEach((item)=>{
         const page = url+e.target.name;
         removeAlerts(form);
         
-        postRequest(form, page);
+        testRequest(form, page);
     });
 });
 

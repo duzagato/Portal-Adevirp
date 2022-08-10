@@ -18,6 +18,15 @@
 	<body>
 		<header>
 			<nav>
+				<div class="principal">
+					<a href="">Atividades</a>
+					<a href="">Downloads</a>
+					<a href="">Biblioteca</a>
+					<a href="">Rádio</a>
+					<a href="">Podcasts</a>
+					<a href=""></a>
+					<a href=""></a>
+				</div>
 				<div class="usuario">
 					<span><?php echo $usuario_nome.' '.$usuario_sobrenome;?></span>
 					<a href="<?php echo URL.'agenda';?>">Minha Agenda</a>
